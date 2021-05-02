@@ -1,0 +1,17 @@
+{
+  "name": "acnobot",
+  "version": "0.0.1",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": false
+  },
+  "suffix": ".js",
+  "bs-dependencies": [  ],
+  "warnings": {
+    "error" : "+101"
+  }
+}
