@@ -9,34 +9,35 @@ module Collection = {
 module Embed = {
     type image = {
         url: string
-    };
+    }
     type t= {
         title: option(string),
         description: option(string),
         image: option(image)
-    };
-    let title = (title,embed) => {...embed, title: Some(title)};
-    let description = (description, embed) => {...embed, description: Some(description)};
-    let image = (image, embed) => {...embed, image: Some(image)};
+    }
+    let title = (title,embed) => {...embed, title: Some(title)}
+    let description = (description, embed) => {...embed, description: Some(description)}
+    let image = (image, embed) => {...embed, image: Some(image)}
 
     let create = () => {
         title: None,
         description: None,
         image: None,
-    };
+    }
 }
+
 type messageEmbed = {
     embed: Embed.t
-};
+}
 
 type replyType =
   | Embed(messageEmbed)
-  | Str(string);
+  | Str(string)
 
 module Ws = {
     type t = {
         ping: int
-    };
+    }
 }
 
 module User = {
@@ -49,7 +50,7 @@ module User = {
 module Message = {
     type mentions =  {
         users: Collection.t(User.t)
-    };
+    }
     type t = {
         content: string,
         author: User.t,
@@ -62,8 +63,8 @@ module Message = {
                  | Embed(content) => replyEmbed(message,content)
                  | Str(content) => replyString(message,content)
                 };
-        ();
-    };
+        ()
+    }
 }
 
 

@@ -13,4 +13,4 @@ let register = () => {
         |> Embed.image({url: User.avatarURL(user)})
         Message.reply(message, Discord.Embed({embed: embed}))
     }
-};
+}
