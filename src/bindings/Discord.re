@@ -25,6 +25,13 @@ module Embed = {
         image: None,
     };
 }
+type messageEmbed = {
+    embed: Embed.t
+};
+
+type replyType =
+  | Embed(messageEmbed)
+  | Str(string);
 
 module Ws = {
     type t = {
@@ -43,16 +50,20 @@ module Message = {
     type mentions =  {
         users: Collection.t(User.t)
     };
-    type messageEmbed = {
-        embed: Embed.t
-    };
     type t = {
         content: string,
         author: User.t,
         mentions: mentions
     };
-    [@bs.send] external reply : (t, string) => unit;
-    [@bs.send] external replyEmbed : (t, messageEmbed) => unit = "reply";
+    [@bs.send] external replyString : (t, string) => t = "reply";
+    [@bs.send] external replyEmbed : (t, messageEmbed) => t = "reply";
+    let reply = (message, content) => {
+        let _ = switch(content){
+                 | Embed(content) => replyEmbed(message,content)
+                 | Str(content) => replyString(message,content)
+                };
+        ();
+    };
 }
 
 
