@@ -13,6 +13,9 @@ let commands = []
 |> registerCommand(Ping.register())
 |> registerCommand(Avatar.register())
 
+
+let commands = registerCommand(Help.register(commands), commands)
+
 let callback = (message) => {
     if (Js.String.startsWith("j!",message.content)){
         let commandName = (
