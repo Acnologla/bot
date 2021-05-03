@@ -35,7 +35,7 @@ let callback = (message) => {
 
 
 Client.onMessage(client, callback)
-Client.onReady(client, (_) => 
+Client.onReady(client, () => 
     Js.log(client.user.tag)
 )
 Client.login(client, token)
