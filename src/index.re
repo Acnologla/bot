@@ -12,6 +12,7 @@ let client = Client.create()
 let commands = []
 |> registerCommand(Ping.register())
 |> registerCommand(Avatar.register())
+|> registerCommand(Escrever.register())
 
 
 let commands = registerCommand(Help.register(commands), commands)
