@@ -34,6 +34,10 @@ type replyType =
   | Embed(messageEmbed)
   | Str(string)
 
+
+let toStr = (str) => Str(str)
+let toEmbed = (embed) => Embed(embed)
+
 module Ws = {
     type t = {
         ping: int
