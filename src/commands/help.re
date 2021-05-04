@@ -3,7 +3,7 @@ open Discord
 let register = (commands) => {
     name: ["help"],
     run: (message, client) =>{
-        let text = List.map((command) => "`" ++ List.nth(command.name,0) ++ "`",commands) 
+        let text = List.map((command) => "`" ++ List.hd(command.name) ++ "`",commands) 
         |> String.concat(", ")
         let embed = Embed.create()
         |> Embed.title("help")
