@@ -42,7 +42,7 @@ type replyType =
 
 
 let toStr = (str) => Str(str)
-let toEmbed = (embed: Embed.t) => Embed({embed: embed})
+let toEmbed = (embed) => Embed({embed: embed})
 
 module Ws = {
     type t = {
