@@ -11,13 +11,13 @@ let findCommand = (commandName, commands) => {
       switch (
         List.find(
           aliase => aliase == String.lowercase_ascii(commandName),
-          command.name,
+          command.name
         )
       ) {
       | exception Not_found => false
       | _ => true
       },
-    commands,
+    commands
   )
 }
 

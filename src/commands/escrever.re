@@ -8,5 +8,5 @@ let register = () => {
     |> String.mapi(i => i mod 2 == 0 ? Char.uppercase_ascii : Char.uppercase_ascii)
     |> Discord.toStr
     |> Discord.Message.reply(message)
-  },
+  }
 }

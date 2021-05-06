@@ -37,5 +37,5 @@ let register = commands => {
         Message.reply(message, toStr("Não achei esse comando"))
       }
     }
-  },
+  }
 }

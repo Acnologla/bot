@@ -26,7 +26,7 @@ let callback = message =>
                           String.length(message.content) - prefixLen,
                         )
                         |> Js.String.split(" ")
-                      )[0];
+                      )[0]
     switch (findCommand(commandName, commands)) {
     | command => command.run(message, client)
     | exception Not_found => ()

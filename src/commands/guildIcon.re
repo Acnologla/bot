@@ -9,5 +9,5 @@ let register = () => {
     |> Embed.image({url: Guild.iconURL(message.guild)})
     |> toEmbed
     |> Message.reply(message)
-  },
+  }
 }
