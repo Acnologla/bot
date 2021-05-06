@@ -10,19 +10,25 @@ module Embed = {
     type image = {
         url: string
     }
+    type footer = {
+        text: string
+    }
     type t= {
         title: option(string),
         description: option(string),
-        image: option(image)
+        image: option(image),
+        footer: option(footer)
     }
     let title = (title,embed) => {...embed, title: Some(title)}
     let description = (description, embed) => {...embed, description: Some(description)}
     let image = (image, embed) => {...embed, image: Some(image)}
+    let footer = (footer, embed) => {...embed, footer: Some(footer)}
 
     let create = () => {
         title: None,
         description: None,
         image: None,
+        footer: None,
     }
 }
 
