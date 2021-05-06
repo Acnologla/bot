@@ -13,18 +13,19 @@ let commands = []
 |> registerCommand(Ping.register())
 |> registerCommand(Avatar.register())
 |> registerCommand(Escrever.register())
+|> registerCommand(GuildIcon.register())
 
 
 let commands = registerCommand(Help.register(commands), commands)
 
 let callback = (message) => {
-    if (Js.String.startsWith("j!",message.content)){
+    if (Js.String.startsWith(prefix,message.content)){
         let commandName = (
             String.sub(message.content, prefixLen, String.length(message.content) - prefixLen)
             |> Js.String.split(" ")
             )[0]
         switch(List.find(command => 
-            switch(List.find(aliase => aliase == commandName,command.name)){
+            switch(List.find(aliase => aliase == String.lowercase_ascii(commandName),command.name)){
             | exception Not_found => false
             | _ => true
         },commands)){

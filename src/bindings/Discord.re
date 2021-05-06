@@ -36,7 +36,7 @@ type replyType =
 
 
 let toStr = (str) => Str(str)
-let toEmbed = (embed) => Embed(embed)
+let toEmbed = (embed: Embed.t) => Embed({embed: embed})
 
 module Ws = {
     type t = {
@@ -44,11 +44,22 @@ module Ws = {
     }
 }
 
+
+
 module User = {
     type t = {
         tag: string
     };
     [@bs.send] external avatarURL : (t) => string;
+}
+
+module Guild = {
+    type t = {
+        name: string,
+        id: string
+    };
+    [@bs.send] external iconURL : (t) => string;
+
 }
 
 module Message = {
@@ -58,7 +69,8 @@ module Message = {
     type t = {
         content: string,
         author: User.t,
-        mentions: mentions
+        mentions: mentions,
+        guild: Guild.t
     };
     [@bs.send] external replyString : (t, string) => t = "reply";
     [@bs.send] external replyEmbed : (t, messageEmbed) => t = "reply";
