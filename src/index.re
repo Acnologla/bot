@@ -14,11 +14,10 @@ let commands = []
 |> registerCommand(Avatar.register())
 |> registerCommand(Escrever.register())
 
-
 let commands = registerCommand(Help.register(commands), commands)
 
 let callback = (message) => {
-    if (Js.String.startsWith("j!",message.content)){
+    if (Js.String.startsWith(prefix, message.content)){
         let commandName = (
             String.sub(message.content, prefixLen, String.length(message.content) - prefixLen)
             |> Js.String.split(" ")
@@ -27,7 +26,7 @@ let callback = (message) => {
             switch(List.find(aliase => aliase == commandName,command.name)){
             | exception Not_found => false
             | _ => true
-        },commands)){
+        }, commands)){
         | command => command.run(message,client)
         | exception Not_found => ()
         }
