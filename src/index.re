@@ -23,7 +23,7 @@ let callback = (message) => {
             |> Js.String.split(" ")
             )[0]
         switch(List.find(command => 
-            switch(List.find(aliase => aliase == commandName,command.name)){
+            switch(List.find(aliase => aliase == commandName, command.name)){
             | exception Not_found => false
             | _ => true
         }, commands)){
