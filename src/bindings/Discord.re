@@ -10,19 +10,25 @@ module Embed = {
     type image = {
         url: string
     }
+    type footer = {
+        text: string
+    }
     type t= {
         title: option(string),
         description: option(string),
-        image: option(image)
+        image: option(image),
+        footer: option(footer)
     }
     let title = (title,embed) => {...embed, title: Some(title)}
     let description = (description, embed) => {...embed, description: Some(description)}
     let image = (image, embed) => {...embed, image: Some(image)}
+    let footer = (footer, embed) => {...embed, footer: Some(footer)}
 
     let create = () => {
         title: None,
         description: None,
         image: None,
+        footer: None,
     }
 }
 
@@ -36,7 +42,7 @@ type replyType =
 
 
 let toStr = (str) => Str(str)
-let toEmbed = (embed) => Embed(embed)
+let toEmbed = (embed) => Embed({embed: embed})
 
 module Ws = {
     type t = {
@@ -44,11 +50,22 @@ module Ws = {
     }
 }
 
+
+
 module User = {
     type t = {
         tag: string
     };
     [@bs.send] external avatarURL : (t) => string;
+}
+
+module Guild = {
+    type t = {
+        name: string,
+        id: string
+    };
+    [@bs.send] external iconURL : (t) => string;
+
 }
 
 module Message = {
@@ -58,7 +75,8 @@ module Message = {
     type t = {
         content: string,
         author: User.t,
-        mentions: mentions
+        mentions: mentions,
+        guild: Guild.t
     };
     [@bs.send] external replyString : (t, string) => t = "reply";
     [@bs.send] external replyEmbed : (t, messageEmbed) => t = "reply";
