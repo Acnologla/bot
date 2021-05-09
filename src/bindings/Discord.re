@@ -3,6 +3,9 @@ module Collection = {
         size: int
     };
 
+    [@bs.send] external get : (t('a), string) => option('a);
+    [@bs.send] external filter : (t('a),'a => bool ) => t('a);
+    [@bs.send] external map : (t('a),'a => 'b ) => array('b);
     [@bs.send] external first : t('a) => 'a;
 }
 
@@ -13,22 +16,39 @@ module Embed = {
     type footer = {
         text: string
     }
+    type field = {
+        name: string,
+        value: string,
+        inline: bool
+    }
     type t= {
         title: option(string),
         description: option(string),
         image: option(image),
-        footer: option(footer)
+        footer: option(footer),
+        fields: array(field),
+        thumbnail: option(image),
+        color: option(int)
     }
     let title = (title,embed) => {...embed, title: Some(title)}
     let description = (description, embed) => {...embed, description: Some(description)}
     let image = (image, embed) => {...embed, image: Some(image)}
     let footer = (footer, embed) => {...embed, footer: Some(footer)}
-
+    let thumbnail = (thumbnail, embed) => {...embed, thumbnail: Some(thumbnail)}
+    let color = (color, embed) => {...embed, color: Some(color)}
+    let addField = (field, embed) => {
+            ...embed,
+            fields: Array.append(embed.fields, [|field|])
+        }
+    
     let create = () => {
         title: None,
         description: None,
         image: None,
         footer: None,
+        fields: [||],
+        thumbnail: None,
+        color: None
     }
 }
 
@@ -54,15 +74,27 @@ module Ws = {
 
 module User = {
     type t = {
-        tag: string
+        tag: string,
+        id: string,
+        createdTimestamp: float
     };
     [@bs.send] external avatarURL : (t) => string;
 }
 
+module Member = {
+    type t = {
+        user: User.t
+    };
+}
+
 module Guild = {
+    type members = {
+        cache: Collection.t(Member.t)
+    }
     type t = {
         name: string,
-        id: string
+        id: string,
+        members
     };
     [@bs.send] external iconURL : (t) => string;
 
@@ -91,9 +123,13 @@ module Message = {
 
 
 module Client = {
+    type guilds = {
+        cache:  Collection.t(Guild.t)
+     }
     type t = {
         user: User.t,
-        ws: Ws.t
+        ws: Ws.t,
+        guilds: guilds
     };
     [@bs.module "discord.js"] [@bs.new] external create : unit => t = "Client";
     [@bs.send] external onMessage : (t, [@bs.as "message"] _ , (Message.t => unit)) => unit = "on";

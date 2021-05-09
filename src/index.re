@@ -15,6 +15,7 @@ let commands =
   |> registerCommand(Avatar.register())
   |> registerCommand(Escrever.register())
   |> registerCommand(GuildIcon.register())
+  |> registerCommand(Userinfo.register())
 
 let commands = registerCommand(Help.register(commands), commands)
 let callback = message =>

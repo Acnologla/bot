@@ -15,7 +15,7 @@ let register = commands => {
            })
         |> description(
              List.map(
-               command => "`" ++ List.hd(command.name) ++ "`",
+               (command: command) => "`" ++ List.hd(command.name) ++ "`",
                commands,
              )
              |> String.concat(", "),
