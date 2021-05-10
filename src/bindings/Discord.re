@@ -81,6 +81,21 @@ module User = {
     [@bs.send] external avatarURL : (t) => string;
 }
 
+module Channel = {
+    type t = {
+        name: string,
+        id: string,
+    };
+   [@bs.get] external getType : t => string = "type"
+}
+module Role = {
+    type t = {
+        name: string,
+        id: string,
+        color: int
+    }
+}
+
 module Member = {
     type t = {
         user: User.t
@@ -91,10 +106,19 @@ module Guild = {
     type members = {
         cache: Collection.t(Member.t)
     }
+    type roles = {
+        cache: Collection.t(Role.t)
+    }
+    type channels = {
+        cache: Collection.t(Channel.t)
+    }
     type t = {
         name: string,
         id: string,
-        members
+        members,
+        roles,
+        channels,
+        owner: Member.t
     };
     [@bs.send] external iconURL : (t) => string;
 
