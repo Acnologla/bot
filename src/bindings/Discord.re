@@ -52,6 +52,8 @@ module Embed = {
     }
 }
 
+type messageBuffer
+
 type messageEmbed = {
     embed: Embed.t
 }
@@ -59,10 +61,12 @@ type messageEmbed = {
 type replyType =
   | Embed(messageEmbed)
   | Str(string)
+  | Buffer(messageBuffer)
 
 
 let toStr = (str) => Str(str)
 let toEmbed = (embed) => Embed({embed: embed})
+let toBuffer = (buffer) => Buffer(buffer)
 
 module Ws = {
     type t = {
@@ -78,7 +82,12 @@ module User = {
         id: string,
         createdTimestamp: float
     };
+    type imageUrl = {
+        format: string,
+        size: int
+    };
     [@bs.send] external avatarURL : (t) => string;
+    [@bs.send] external displayAvatarURL : (t, imageUrl) => string;
 }
 
 module Channel = {
@@ -134,12 +143,14 @@ module Message = {
         mentions: mentions,
         guild: Guild.t
     };
+    [@bs.send] external replyBuffer : (t, messageBuffer) => t = "reply";
     [@bs.send] external replyString : (t, string) => t = "reply";
     [@bs.send] external replyEmbed : (t, messageEmbed) => t = "reply";
     let reply = (message, content) => {
         let _ = switch(content){
-                 | Embed(content) => replyEmbed(message,content)
-                 | Str(content) => replyString(message,content)
+                 | Embed(content) => replyEmbed(message, content)
+                 | Str(content) => replyString(message, content)
+                 | Buffer(content) => replyBuffer(message, content)
                 };
         ()
     }
@@ -161,3 +172,4 @@ module Client = {
     [@bs.send] external login : (t, string) => unit;
 
 }
+[@bs.module "discord.js"] [@bs.new] external messageAttachment: (Js_typed_array.array_buffer, string) => messageBuffer = "MessageAttachment";

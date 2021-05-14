@@ -17,6 +17,7 @@ let commands =
   |> registerCommand(GuildIcon.register())
   |> registerCommand(Userinfo.register())
   |> registerCommand(Guildinfo.register())
+  |> registerCommand(Monkey.register())
 
 let commands = registerCommand(Help.register(commands), commands)
 let callback = message =>
