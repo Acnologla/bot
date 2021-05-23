@@ -11,7 +11,7 @@ let register = commands => {
         create()
         |> title("help")
         |> footer({
-             text: "use j!help <comando> para ver mais informaçoes sobre um comando",
+             text: {j|use j!help <comando> para ver mais informaçoes sobre um comando |j},
            })
         |> description(
              List.map(

@@ -18,6 +18,7 @@ let commands =
   |> registerCommand(Userinfo.register())
   |> registerCommand(Guildinfo.register())
   |> registerCommand(Monkey.register())
+  |> registerCommand(Sobremim.register())
 
 let commands = registerCommand(Help.register(commands), commands)
 let callback = message =>

@@ -10,7 +10,9 @@
     "in-source": false
   },
   "suffix": ".js",
-  "bs-dependencies": [  ],
+  "bs-dependencies": [  
+    "acnodb"
+  ],
   "warnings": {
     "error" : "+101"
   }
