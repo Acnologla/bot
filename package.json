@@ -15,8 +15,9 @@
     "bs-platform": "*"
   },
   "dependencies": {
-    "acnodb": "0.0.2",
+    "acnodb": "0.0.4",
     "canvas": "^2.7.0",
+    "discord-buttons": "^2.4.1",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0"
   }

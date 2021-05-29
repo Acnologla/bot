@@ -1,4 +1,15 @@
 open Discord
+
+let (>>|) = (opt, func) => {
+  switch(opt){
+  | Some(x) => {
+    func(x)
+    None
+  }
+  | None => None
+  }
+};
+
 type command = {
   name: list(string),
   description: string,
